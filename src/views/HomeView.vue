@@ -11,10 +11,20 @@ export default {
     }
   },
   methods: {
-    onSubmit() {
-      console.log('onSubmit', this.form)
-      useAuthStore().login(this.form.user)
-      this.$router.push('/about')
+    async onSubmit() {
+      console.log('onSubmit', this.form.user)
+      const res = await fetch('https://reqres.in/api/login', {
+        method: 'POST',
+        body: JSON.stringify({email: this.form.user, password: this.form.password}),
+        headers: {'Content-Type': 'application/json'}
+      })
+
+      if (res.ok) {
+        useAuthStore().login(this.form.user)
+        this.$router.push('/about')
+      } else {
+        console.error(res)
+      }
     },
     onLogout() {
       useAuthStore().logout()
@@ -28,10 +38,10 @@ export default {
   <main>
     <h1>Login</h1>
     <form name="login" @submit.prevent="onSubmit" v-if="!isLoggedIn">
-      <label for="user">User:</label>
-      <input id="user" v-model="form.user" type="text" required>
+      <label for="user">email:</label>
+      <input id="user" v-model="form.user" type="Email" required>
       <label for="password">Pass:</label>
-      <input id="password" v-model="form.password" type="password">
+      <input id="password" v-model="form.password" type="password" required>
       <button>Log me in</button>
     </form>
     <button @click="onLogout" v-if="isLoggedIn">Log me out</button>
