@@ -12,8 +12,13 @@ export default {
 
 <template>
   <div class="about">
-    <h1>Wellcome <span>{{ authStore.userName }}</span>!!</h1>
-    <h2>This is an about page</h2>
+    <template v-if="authStore.userName">
+      <h1>Wellcome <span>{{ authStore.userName }}</span>!!</h1>
+      <h2>This is an about page</h2>
+    </template>
+    <template v-else>
+      <h2>Yoy need to login before continue</h2>
+    </template>
   </div>
 </template>
 

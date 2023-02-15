@@ -6,13 +6,18 @@ export default {
       form: {
         user: '',
         password: '',
-      }
+      },
+      isLoggedIn: useAuthStore().userName !== undefined
     }
   },
   methods: {
     onSubmit() {
       console.log('onSubmit', this.form)
       useAuthStore().login(this.form.user)
+      this.$router.push('/about')
+    },
+    onLogout() {
+      useAuthStore().logout()
       this.$router.push('/about')
     }
   }
@@ -22,13 +27,14 @@ export default {
 <template>
   <main>
     <h1>Login</h1>
-    <form name="login" @submit.prevent="onSubmit">
+    <form name="login" @submit.prevent="onSubmit" v-if="!isLoggedIn">
       <label for="user">User:</label>
       <input id="user" v-model="form.user" type="text" required>
       <label for="password">Pass:</label>
       <input id="password" v-model="form.password" type="password">
       <button>Log me in</button>
     </form>
+    <button @click="onLogout" v-if="isLoggedIn">Log me out</button>
   </main>
 </template>
 
