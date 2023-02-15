@@ -4,7 +4,7 @@ import { useAuthStore } from '../stores/AuthStore';
 export default {
   data() { 
     return {
-      user: useAuthStore().user
+      authStore: useAuthStore()
     }
   }
 }
@@ -12,7 +12,7 @@ export default {
 
 <template>
   <div class="about">
-    <h1>Wellcome <span>{{ user }}</span>!!</h1>
+    <h1>Wellcome <span>{{ authStore.userName }}</span>!!</h1>
     <h2>This is an about page</h2>
   </div>
 </template>
