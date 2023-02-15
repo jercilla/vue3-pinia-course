@@ -8,5 +8,10 @@ export const useAuthStore = defineStore('authStore', {
     userName() {
       return this.user
     }
+  },
+  actions: {
+    login(user) {
+      this.user = user
+    }
   }
 })

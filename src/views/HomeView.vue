@@ -1,4 +1,5 @@
 <script>
+import { useAuthStore } from '../stores/AuthStore'
 export default {
   data() {
     return {
@@ -11,6 +12,7 @@ export default {
   methods: {
     onSubmit() {
       console.log('onSubmit', this.form)
+      useAuthStore().login(this.form.user)
       this.$router.push('/about')
     }
   }
